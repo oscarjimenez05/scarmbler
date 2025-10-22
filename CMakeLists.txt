@@ -47,7 +47,7 @@ juce_add_plugin(${PROJECT_NAME}
         COPY_PLUGIN_AFTER_BUILD TRUE
         PLUGIN_MANUFACTURER_CODE Tap1
         PLUGIN_CODE Reg0
-        FORMATS VST3 AU Standalone
+        FORMATS VST3 Standalone
         PRODUCT_NAME "Scarmbler"
 )
 
