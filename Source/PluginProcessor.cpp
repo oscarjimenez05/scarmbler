@@ -12,10 +12,12 @@ AudioPluginAudioProcessor::AudioPluginAudioProcessor()
                      #endif
                        )
 {
+    // start up other classes etc, initialize
 }
 
 AudioPluginAudioProcessor::~AudioPluginAudioProcessor()
 {
+    // destructor, clears buffers etc
 }
 
 //==============================================================================
@@ -53,9 +55,13 @@ bool AudioPluginAudioProcessor::isMidiEffect() const
 
 double AudioPluginAudioProcessor::getTailLengthSeconds() const
 {
+    // the tail length of the effect in seconds - for reverbs, delays, etc
     return 0.0;
 }
 
+
+//==============================================================================
+// The following methods implement the plugin's preset management.
 int AudioPluginAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
@@ -87,7 +93,7 @@ void AudioPluginAudioProcessor::changeProgramName (int index, const juce::String
 void AudioPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    // initialisation that you need.
     juce::ignoreUnused (sampleRate, samplesPerBlock);
 }
 
@@ -124,8 +130,9 @@ bool AudioPluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
+    // most important
     juce::ignoreUnused (midiMessages);
-
+    //nodenormals to eliminate denormalised numbers (performance hit)
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
